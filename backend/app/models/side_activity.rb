@@ -1,0 +1,2 @@
+class SideActivity < ApplicationRecord
+end

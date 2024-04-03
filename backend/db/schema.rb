@@ -10,7 +10,50 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_26_092813) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_03_060232) do
+  create_table "post_side_activities", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "post_id", null: false
+    t.bigint "side_activities_id", null: false
+    t.string "activity_content"
+    t.integer "visit_order"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_post_side_activities_on_post_id"
+    t.index ["side_activities_id"], name: "index_post_side_activities_on_side_activities_id"
+  end
+
+  create_table "posts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "sauna_id", null: false
+    t.string "trip_title", null: false
+    t.text "trip_content", null: false
+    t.text "sauna_content"
+    t.integer "like_count"
+    t.integer "visit_order"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sauna_id"], name: "index_posts_on_sauna_id"
+    t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
+  create_table "saunas", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "address", null: false
+    t.string "image"
+    t.string "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "side_activities", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "address", null: false
+    t.string "image"
+    t.string "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "provider", default: "email", null: false
     t.string "uid", default: "", null: false
@@ -30,10 +73,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_26_092813) do
     t.text "tokens"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "avatar"
+    t.text "self_introduction"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "post_side_activities", "posts"
+  add_foreign_key "post_side_activities", "side_activities", column: "side_activities_id"
+  add_foreign_key "posts", "saunas"
+  add_foreign_key "posts", "users"
 end

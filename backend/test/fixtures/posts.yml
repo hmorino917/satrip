@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  sauna: one
+  trip_title: MyString
+  trip_content: MyText
+  sauna_content: MyText
+  like_count: 1
+  visit_order: 1
+
+two:
+  user: two
+  sauna: two
+  trip_title: MyString
+  trip_content: MyText
+  sauna_content: MyText
+  like_count: 1
+  visit_order: 1
