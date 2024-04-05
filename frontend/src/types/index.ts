@@ -22,3 +22,15 @@ export interface User {
   created_at: Date
   updated_at: Date
 }
+
+export interface Post {
+  id: number;
+  userId: number;
+  saunaId: number;
+  tripTitle: string;
+  tripContent: string;
+  saunaContent: string;
+  likeCount: string;
+  visitOrder: number;
+  createdAt?: Date;
+}

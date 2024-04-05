@@ -1,15 +1,11 @@
-import React, { useState, useEffect, createContext } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { useState, useEffect, createContext } from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 
 import CommonLayout from "components/layouts/CommonLayout";
-import Home from "components/pages/Home";
-import SignUp from "components/pages/SignUp";
-import SignIn from "components/pages/SignIn";
-
 import { getCurrentUser } from "lib/api/auth";
-import { User } from "interfaces/index";
+import { User } from "types/index";
+import AppRoutes from "routes/Routes";
 
-// グローバルで扱う変数・関数
 export const AuthContext = createContext({} as {
   loading: boolean;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -43,19 +39,11 @@ const App: React.FC = () => {
     handleGetCurrentUser();
   }, [setCurrentUser]);
 
-  const PrivateRoute = ({ children }: { children: JSX.Element }) => {
-    return !loading && isSignedIn ? children : <Navigate to="/signin" replace />;
-  };
-
   return (
     <Router>
       <AuthContext.Provider value={{ loading, setLoading, isSignedIn, setIsSignedIn, currentUser, setCurrentUser }}>
         <CommonLayout>
-          <Routes>
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/signin" element={<SignIn />} />
-            <Route path="/" element={<PrivateRoute>{<Home />}</PrivateRoute>} />
-          </Routes>
+          <AppRoutes />
         </CommonLayout>
       </AuthContext.Provider>
     </Router>

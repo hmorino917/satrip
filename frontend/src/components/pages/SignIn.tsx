@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react"
+import { useState, useContext } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import Cookies from "js-cookie"
 
@@ -14,7 +14,7 @@ import Box from "@material-ui/core/Box"
 import { AuthContext } from "App"
 import AlertMessage from "components/utils/AlertMessage"
 import { signIn } from "lib/api/auth"
-import { SignInParams } from "interfaces/index"
+import { SignInParams } from "types/index"
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
